@@ -1,0 +1,4 @@
+#!/bin/bash
+source ~/muc023/ros2/install/setup.bash
+rviz2 &
+ros2 param set rviz use_sim_time true
