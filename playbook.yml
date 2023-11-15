@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  vars:
+    user: "marius"
+    docker_users:
+      - marius
+  become_user: "{{user}}"
+  roles:
+  - role: gantsign.visual-studio-code
+    become: yes
+    become_user: root
+  - role: geerlingguy.docker
+    become: yes
+    become_user: root
+  tasks:
+  - name: Install vim
+    ansible.builtin.apt:
+      name: vim
+  - name: Install i3ma
+    ansible.builtin.apt:
+      name: i3
+  - name: Install tmux
+    ansible.builtin.apt:
+      name: tmux
+  - import_tasks: simpleterm.yml
+  - import_tasks: ros-humble.yml
+  - import_tasks: tufast.yml

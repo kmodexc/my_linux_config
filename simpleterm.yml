@@ -1,0 +1,34 @@
+- name: Set dependencies variable
+  set_fact:
+    st_dependencies:
+      - make
+      - gcc
+      - unzip
+      - libxft-dev
+    st_repo_local_destination: "/tmp/st"
+    st_force_install: false
+
+- name: Clone st repo locally.
+  git:
+    repo: "https://git.suckless.org/st"
+    dest: "{{ st_repo_local_destination }}"
+    version: "master"
+    accept_hostkey: false
+  become: false
+  register: st_repo
+
+- name: Install dependencies
+  apt:
+    name: "{{ item }}"
+  become: true
+  become_user: root
+  with_items: "{{ st_dependencies }}"
+
+- name: Install st
+  shell: |
+    make install
+  args:
+    chdir: "{{ st_repo_local_destination }}"
+    creates: "{{ (st_repo.changed == true or st_force_install == true) | ternary('/usr/local/bin/st_dummy', '/usr/local/bin/st') }}"
+  become: true
+  become_user: root

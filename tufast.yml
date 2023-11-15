@@ -1,0 +1,52 @@
+- name: Set dependencies variable
+  set_fact:
+    ros2_ws: "/home/{{user}}/muc023/ros2"
+    repo_coppeliasim_dir: "/home/{{user}}/muc023/ros2/coppeliasim"
+
+- name: Install dependencies
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - git
+    - git-lfs
+
+- name: clone coppeliasim
+  git:
+    repo: git@gitlab.lrz.de:tufast-eco-fallback/simulation/coppeliasim.git
+    dest: "{{ repo_coppeliasim_dir }}"
+    version: "ros2"
+    accept_hostkey: true
+  become: false
+
+- name: install coppeliasim dependencys
+  become: true
+  shell: "./dependencies.sh"
+  args:
+    chdir: "{{repo_coppeliasim_dir}}"
+    executable: /bin/bash
+
+- name: install and pull lfs
+  become: false
+  shell: "git lfs install && git lfs pull"
+  args:
+    chdir: "{{repo_coppeliasim_dir}}"
+    executable: /bin/bash
+
+- name: extract archive
+  become: false
+  shell: "tar --checkpoint=10000 -xf CoppeliaSim_Edu.tar.xz"
+  args:
+    chdir: "{{repo_coppeliasim_dir}}"
+    executable: /bin/bash
+    creates: "{{repo_coppeliasim_dir}}/CoppeliaSim"
+
+- name: build coppeliasim
+  become: false
+  shell: "source /opt/ros/humble/setup.bash && colcon build --symlink-install --packages-select coppeliasim_plugin_velodyne sim_ros2_interface"
+  args:
+    chdir: "{{ros2_ws}}"
+    executable: /bin/bash
+    creates: "{{ros2_ws}}/install"
+  environment:
+    COPPELIASIM_ROOT_DIR: "{{repo_coppeliasim_dir}}/CoppeliaSim"
