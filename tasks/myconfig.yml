@@ -22,3 +22,7 @@
   copy:
     src: "data/setdpisfb"
     dest: "/usr/local/bin/"
+- name: copy reconfigure
+  copy:
+    src: "data/run_reconfigure"
+    dest: "/usr/local/bin/"

@@ -1,0 +1,9 @@
+- name: Install basic components
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - vim
+    - i3
+    - tmux
+    - htop
