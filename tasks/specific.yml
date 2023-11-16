@@ -23,20 +23,20 @@
 - name: set gtk darktheme
   copy: 
     src: "data/settings.ini"
-    dest: "/home/{{user}}/.config/gtk-{{item}}/"
+    dest: "/home/{{ansible_user_id}}/.config/gtk-{{item}}/"
   with_items:
     - "3.0"
     - "4.0"
 - name: set xterm to dark mode
   copy:
     src: data/.Xdefaults
-    dest: /home/{{user}}/
+    dest: /home/{{ansible_user_id}}/
 - name: disable middle click paste - copy config
   copy:
     src: data/.xbindkeysrc
-    dest: /home/{{user}}/
+    dest: /home/{{ansible_user_id}}/
 - name: disable middle click paste - start xbindkeyrc at i3 start
   copy:
     src: data/.xinitrc
-    dest: /home/{{user}}/
+    dest: /home/{{ansible_user_id}}/
     

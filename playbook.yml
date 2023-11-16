@@ -1,10 +1,5 @@
 ---
 - hosts: localhost
-  vars:
-    user: "marius"
-    docker_users:
-      - marius
-  become_user: "{{user}}"
   roles:
   - role: gantsign.visual-studio-code
     become: yes
@@ -13,6 +8,9 @@
     become: yes
     become_user: root
   tasks:
+  - name: show current user
+    debug:
+      msg: "installing for user: {{ansible_user_id}}"
   - import_tasks: tasks/basic.yml
   - import_tasks: tasks/simpleterm.yml
   - import_tasks: tasks/myconfig.yml

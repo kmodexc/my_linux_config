@@ -1,7 +1,7 @@
 - name: Set dependencies variable
   set_fact:
-    ros2_ws: "/home/{{user}}/muc023/ros2"
-    repo_coppeliasim_dir: "/home/{{user}}/muc023/ros2/coppeliasim"
+    ros2_ws: "/home/{{ansible_user_id}}/muc023/ros2"
+    repo_coppeliasim_dir: "/home/{{ansible_user_id}}/muc023/ros2/coppeliasim"
 
 - name: Install dependencies
   apt:
