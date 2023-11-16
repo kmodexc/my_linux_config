@@ -1,0 +1,16 @@
+#!/bin/bash
+regex_pattern="^(wlan|wl|wlp)[0-9]+[a-z]*[0-9]*$"
+internet_interface="wlp4s0"
+if [[ $# -ne 1 ]] || ! [[ $1 =~ $regex_pattern ]] || [[ $1 == $internet_interface ]]
+  then
+    echo "usage: enable_nat <net0>"
+    echo "this automatically sets up nat where net0 can have internet through your pc to $internet_interface's internet"
+    exit
+fi
+echo "enable nat from $1 to $internet_interface"
+sudo sysctl net.ipv4.ip_forward=1
+sudo sysctl net.ipv4.conf.all.forwarding=1
+sudo sysctl net.ipv6.conf.all.forwarding=1
+sudo iptables -t nat -A POSTROUTING -o $internet_interface -j MASQUERADE
+sudo iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -i $1 -o $internet_interface -j ACCEPT

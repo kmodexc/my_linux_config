@@ -1,28 +1,24 @@
-- name: copy bash_aliases
+- name: copy configs to user folder
   copy:
-    src: "data/.bash_aliases"
+    src: "{{item}}"
     dest: "/home/{{user}}/"
-- name: copy tmux conf
-  copy:
-    src: "data/.tmux.conf"
-    dest: "/home/{{user}}/"
+  with_items:
+    - "data/.bash_aliases"
+    - "data/.tmux.conf"
 - name: copy i3 conf
   copy:
     src: "data/config"
     dest: "/home/{{user}}/.config/i3/"
-- name: copy run_coppeliasim
+- name: run scripts
+  become: true
+  become_user: root
   copy:
-    src: "data/run_coppeliasim"
+    src: "{{item}}"
     dest: "/usr/local/bin/"
-- name: copy run_rviz2
-  copy:
-    src: "data/run_rviz2"
-    dest: "/usr/local/bin/"
-- name: copy setdpisfb
-  copy:
-    src: "data/setdpisfb"
-    dest: "/usr/local/bin/"
-- name: copy reconfigure
-  copy:
-    src: "data/run_reconfigure"
-    dest: "/usr/local/bin/"
+    mode: preserve
+  with_items:
+    - "data/run_coppeliasim"
+    - "data/run_rviz2"
+    - "data/setdpisfb"
+    - "data/run_reconfigure"
+    - "data/share_internet"

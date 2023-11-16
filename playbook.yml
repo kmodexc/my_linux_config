@@ -5,16 +5,17 @@
     docker_users:
       - marius
   become_user: "{{user}}"
-#  roles:
-#  - role: gantsign.visual-studio-code
-#    become: yes
-#    become_user: root
-#  - role: geerlingguy.docker
-#    become: yes
-#    become_user: root
+  roles:
+  - role: gantsign.visual-studio-code
+    become: yes
+    become_user: root
+  - role: geerlingguy.docker
+    become: yes
+    become_user: root
   tasks:
-#  - import_tasks: taks/basic.yml
-#  - import_tasks: tasks/simpleterm.yml
-#  - import_tasks: tasks/ros-humble.yml
-#  - import_tasks: tasks/tufast.yml
-   - import_tasks: tasks/specific.yml
+  - import_tasks: tasks/basic.yml
+  - import_tasks: tasks/simpleterm.yml
+  - import_tasks: tasks/myconfig.yml
+  - import_tasks: tasks/ros-humble.yml
+  - import_tasks: tasks/tufast.yml
+  - import_tasks: tasks/specific.yml
