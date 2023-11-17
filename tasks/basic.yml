@@ -7,3 +7,5 @@
     - i3
     - tmux
     - htop
+  become: true
+  become_user: root
