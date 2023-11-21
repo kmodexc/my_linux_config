@@ -9,9 +9,13 @@
   vars:
     packages:
     - git
-    - git-lfs
+    - git-
+  become: true
+  become_user: root
 
 - name: clone coppeliasim
+  become: true
+  become_user: "{{ansible_user_id}}"
   git:
     repo: git@gitlab.lrz.de:tufast-eco-fallback/simulation/coppeliasim.git
     dest: "{{ repo_coppeliasim_dir }}"
@@ -21,20 +25,23 @@
 
 - name: install coppeliasim dependencys
   become: true
+  become_user: root
   shell: "./dependencies.sh"
   args:
     chdir: "{{repo_coppeliasim_dir}}"
     executable: /bin/bash
 
 - name: install and pull lfs
-  become: false
+  become: true
+  become_user: "{{ansible_user_id}}"
   shell: "git lfs install && git lfs pull"
   args:
     chdir: "{{repo_coppeliasim_dir}}"
     executable: /bin/bash
 
 - name: extract archive
-  become: false
+  become: true
+  become_user: "{{ansible_user_id}}"
   shell: "tar --checkpoint=10000 -xf CoppeliaSim_Edu.tar.xz"
   args:
     chdir: "{{repo_coppeliasim_dir}}"
@@ -42,7 +49,8 @@
     creates: "{{repo_coppeliasim_dir}}/CoppeliaSim"
 
 - name: build coppeliasim
-  become: false
+  become: true
+  become_user: "{{ansible_user_id}}"
   shell: "source /opt/ros/humble/setup.bash && colcon build --symlink-install --packages-select coppeliasim_plugin_velodyne sim_ros2_interface"
   args:
     chdir: "{{ros2_ws}}"
