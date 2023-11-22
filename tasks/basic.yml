@@ -3,7 +3,7 @@
     name: "{{ packages }}"
   vars:
     packages:
-    - nvim
+    - neovim
     - i3
     - tmux
     - htop
