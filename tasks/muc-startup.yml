@@ -19,4 +19,10 @@
     version: "ros2_ubuntu22"
     recursive: yes
     update: yes
-    accept_hostkey: true
+    accept_hostkey: yes
+    
+- name: muc-startup - Fix start.sh docker compose
+  shell: "sed -i 's/ docker-compose / docker compose /g' unified/start.sh"
+  args:
+    chdir: "{{muc_repo_dir}}"
+    executable: /bin/bash

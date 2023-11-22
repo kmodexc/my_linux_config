@@ -7,5 +7,6 @@
     - i3
     - tmux
     - htop
+    - xclip
   become: true
   become_user: root
