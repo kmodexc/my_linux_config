@@ -9,7 +9,6 @@
     - dkms
     - git
     - iw
-  become: true
   become_user: root
 - name: rtl8821au - clone driver
   git:
@@ -17,12 +16,9 @@
     dest: "{{ rtl8812au_repo_locations }}"
     version: "main"
     accept_hostkey: false
-  become: false
-  register: rtl8821au_repo
 - name: rtl8821au - build and install
   shell: |
     ./install-driver.sh
   args:
     chdir: "{{ rtl8812au_repo_locations }}"
-  become: true
   become_user: root

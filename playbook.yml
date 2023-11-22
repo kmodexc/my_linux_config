@@ -2,11 +2,12 @@
 - hosts: localhost
   roles:
   - role: gantsign.visual-studio-code
-    become: yes
     become_user: root
   - role: geerlingguy.docker
-    become: yes
     become_user: root
+    vars:
+      docker_users:
+        - "{{ansible_user_id}}"
   tasks:
   - name: show current user
     debug:
@@ -17,4 +18,5 @@
   - import_tasks: tasks/ros-humble.yml
   - import_tasks: tasks/tufast.yml
   - import_tasks: tasks/rtl8821au.yml
-  - import_tasks: tasks/specific.yml
+  - import_tasks: tasks/muc-startup.yml
+  #- import_tasks: tasks/specific.yml

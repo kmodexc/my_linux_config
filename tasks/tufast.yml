@@ -1,56 +1,59 @@
-- name: Set dependencies variable
+- name: tufast - Set dependencies variable
   set_fact:
     ros2_ws: "/home/{{ansible_user_id}}/muc023/ros2"
     repo_coppeliasim_dir: "/home/{{ansible_user_id}}/muc023/ros2/coppeliasim"
 
-- name: Install dependencies
+- name: tufast - Install dependencies
   apt:
     name: "{{ packages }}"
   vars:
     packages:
     - git
-    - git-
-  become: true
+    - git-lfs
   become_user: root
 
-- name: clone coppeliasim
-  become: true
-  become_user: "{{ansible_user_id}}"
+- name: tufast - find user keyfile
+  shell: "find \"$PWD\" | egrep \"id_[a-z]*$\" | awk '{print $1; exit}'"
+  args:
+    chdir: "/home/{{ansible_user_id}}/.ssh/"
+  register: find_keyfile_output
+
+- name: tufast - set keyfile to variable
+  set_fact:
+    user_ssh_key_file: "{{find_keyfile_output.stdout}}"
+
+- name: tufast - debug show searched ssh location
+  debug:
+    msg: "git will search for keys in /home/{{ansible_user_id}}/.ssh/ and found {{user_ssh_key_file}}"
+
+- name: tufast - clone coppeliasim
   git:
     repo: git@gitlab.lrz.de:tufast-eco-fallback/simulation/coppeliasim.git
     dest: "{{ repo_coppeliasim_dir }}"
     version: "ros2"
     accept_hostkey: true
-  become: false
 
-- name: install coppeliasim dependencys
-  become: true
-  become_user: root
+- name: tufast - install coppeliasim dependencys
+  become_user: "root"
   shell: "./dependencies.sh"
   args:
     chdir: "{{repo_coppeliasim_dir}}"
     executable: /bin/bash
 
-- name: install and pull lfs
-  become: true
-  become_user: "{{ansible_user_id}}"
+- name: tufast - install and pull lfs
   shell: "git lfs install && git lfs pull"
   args:
     chdir: "{{repo_coppeliasim_dir}}"
     executable: /bin/bash
 
-- name: extract archive
-  become: true
-  become_user: "{{ansible_user_id}}"
+- name: tufast - extract archive
   shell: "tar --checkpoint=10000 -xf CoppeliaSim_Edu.tar.xz"
   args:
     chdir: "{{repo_coppeliasim_dir}}"
     executable: /bin/bash
     creates: "{{repo_coppeliasim_dir}}/CoppeliaSim"
 
-- name: build coppeliasim
-  become: true
-  become_user: "{{ansible_user_id}}"
+- name: tufast - build coppeliasim
   shell: "source /opt/ros/humble/setup.bash && colcon build --symlink-install --packages-select coppeliasim_plugin_velodyne sim_ros2_interface"
   args:
     chdir: "{{ros2_ws}}"

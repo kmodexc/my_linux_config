@@ -1,0 +1,22 @@
+- name: muc-startup - Set dependencies variable
+  set_fact:
+    muc_repo_dir: "/home/{{ansible_user_id}}/muc022-startup"
+
+- name: muc-startup - Install dependencies
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - git
+    - git-lfs
+    - python3-termcolor
+  become_user: root
+
+- name: muc-startup - Clone repo locally.
+  git:
+    repo: "git@gitlab.lrz.de:tufast-eco-fallback/muc022-startup.git"
+    dest: "{{ muc_repo_dir }}"
+    version: "ros2_ubuntu22"
+    recursive: yes
+    update: yes
+    accept_hostkey: true

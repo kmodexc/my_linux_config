@@ -1,4 +1,4 @@
-- name: install specific deps
+- name: specific - install specific deps
   become: true
   become_user: root
   apt:
@@ -8,34 +8,34 @@
     - xbindkeys
     - xsel
     - xdotool
-- name: set default target to console
+- name: specific - set default target to console
   become: true
   become_user: root
   shell: "systemctl set-default multi-user.target"
-- name: set grub to show boot log
+- name: specific -  grub to show boot log
   become: true
   become_user: root
   shell: "sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT=\\\"\\\"/g' /etc/default/grub && update-grub"
-- name: set natural scrolling
+- name: specific - set natural scrolling
   copy:
     src: "data/30-touchpad.conf"
     dest: "/etc/X11/xorg.conf.d/"
-- name: set gtk darktheme
+- name: specific - set gtk darktheme
   copy: 
     src: "data/settings.ini"
     dest: "/home/{{ansible_user_id}}/.config/gtk-{{item}}/"
   with_items:
     - "3.0"
     - "4.0"
-- name: set xterm to dark mode
+- name: specific - set xterm to dark mode
   copy:
     src: data/.Xdefaults
     dest: /home/{{ansible_user_id}}/
-- name: disable middle click paste - copy config
+- name: specific - disable middle click paste - copy config
   copy:
     src: data/.xbindkeysrc
     dest: /home/{{ansible_user_id}}/
-- name: disable middle click paste - start xbindkeyrc at i3 start
+- name: specific - disable middle click paste - start xbindkeyrc at i3 start
   copy:
     src: data/.xinitrc
     dest: /home/{{ansible_user_id}}/

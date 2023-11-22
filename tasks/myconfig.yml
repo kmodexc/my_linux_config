@@ -1,16 +1,17 @@
-- name: copy configs to user folder
+- name: myconfig - copy configs to user folder
   copy:
     src: "{{item}}"
     dest: "/home/{{ansible_user_id}}/"
   with_items:
     - "data/.bash_aliases"
     - "data/.tmux.conf"
-- name: copy i3 conf
+
+- name: myconfig - copy i3 conf
   copy:
     src: "data/config"
     dest: "/home/{{ansible_user_id}}/.config/i3/"
-- name: run scripts
-  become: true
+
+- name: myconfig - run scripts
   become_user: root
   copy:
     src: "{{item}}"
@@ -22,3 +23,4 @@
     - "data/setdpisfb"
     - "data/run_reconfigure"
     - "data/share_internet"
+    - "data/backlight"
