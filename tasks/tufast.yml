@@ -30,7 +30,7 @@
   git:
     repo: git@gitlab.lrz.de:tufast-eco-fallback/simulation/coppeliasim.git
     dest: "{{ repo_coppeliasim_dir }}"
-    version: "ros2"
+    version: "main"
     accept_hostkey: true
 
 - name: tufast - install coppeliasim dependencys
