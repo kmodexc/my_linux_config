@@ -10,6 +10,7 @@
     packages:
     - git
     - git-lfs
+    - ros-humble-compressed-image-transport
   become_user: root
 
 - name: tufast - find user keyfile

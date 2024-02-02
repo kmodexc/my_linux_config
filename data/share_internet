@@ -1,5 +1,5 @@
 #!/bin/bash
-regex_pattern="^(wlan|wl|wlp|wlx)[0-9][a-z][0-9a-f]*$"
+regex_pattern="^(wlan|wl|wlp|wlx|enp)[0-9][a-z][0-9a-f]*$"
 internet_interface="wlp4s0"
 if [[ $# -ne 1 ]] || ! [[ $1 =~ $regex_pattern ]] || [[ $1 == $internet_interface ]]
   then

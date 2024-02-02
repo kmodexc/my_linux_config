@@ -8,5 +8,6 @@
     - tmux
     - htop
     - xclip
+    - links
   become: true
   become_user: root

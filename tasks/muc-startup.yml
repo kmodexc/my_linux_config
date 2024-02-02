@@ -16,7 +16,7 @@
   git:
     repo: "git@gitlab.lrz.de:tufast-eco-fallback/muc022-startup.git"
     dest: "{{ muc_repo_dir }}"
-    version: "ros2_ubuntu22"
+    version: "main"
     recursive: yes
     update: yes
     accept_hostkey: yes

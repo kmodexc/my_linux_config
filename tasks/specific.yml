@@ -37,6 +37,10 @@
     dest: /home/{{ansible_user_id}}/
 - name: specific - disable middle click paste - start xbindkeyrc at i3 start
   copy:
-    src: data/.xinitrc
+    src: data/.xprofile
+    dest: /home/{{ansible_user_id}}/
+- name: specifig - set colcon to not send notifications
+  copy:
+    src: data/.bashrc
     dest: /home/{{ansible_user_id}}/
     
