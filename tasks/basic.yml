@@ -10,5 +10,7 @@
     - xclip
     - links
     - iftop
+    - rsync
+    - maim
   become: true
   become_user: root

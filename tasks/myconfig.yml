@@ -5,11 +5,15 @@
   with_items:
     - "data/.bash_aliases"
     - "data/.tmux.conf"
+    - "data/.bashrc"
 
 - name: myconfig - copy i3 conf
   copy:
-    src: "data/config"
+    src: "{{item}}"
     dest: "/home/{{ansible_user_id}}/.config/i3/"
+  with_items:
+    - "data/config"
+    - "data/muc023_france.jpg"
 
 - name: myconfig - run scripts
   become_user: root
