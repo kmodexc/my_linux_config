@@ -9,5 +9,6 @@
     - htop
     - xclip
     - links
+    - iftop
   become: true
   become_user: root
