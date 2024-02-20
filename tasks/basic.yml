@@ -12,5 +12,6 @@
     - iftop
     - rsync
     - maim
+    - xterm
   become: true
   become_user: root
