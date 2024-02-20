@@ -17,6 +17,8 @@
   become_user: root
   shell: "sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT=\\\"\\\"/g' /etc/default/grub && update-grub"
 - name: specific - set natural scrolling
+  become: true
+  become_user: root
   copy:
     src: "data/30-touchpad.conf"
     dest: "/etc/X11/xorg.conf.d/"
