@@ -13,5 +13,6 @@
     - rsync
     - maim
     - xterm
+    - imagemagick
   become: true
   become_user: root
