@@ -5,6 +5,8 @@
     packages:
     - neovim
     - i3
+    - sway
+    - swaylock
     - tmux
     - htop
     - xclip

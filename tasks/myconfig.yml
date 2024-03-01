@@ -12,7 +12,15 @@
     src: "{{item}}"
     dest: "/home/{{ansible_user_id}}/.config/i3/"
   with_items:
-    - "data/config"
+    - "data/i3/config"
+    - "data/muc023_france.jpg"
+
+- name: myconfig - copy sway conf
+  copy:
+    src: "{{item}}"
+    dest: "/home/{{ansible_user_id}}/.config/sway/"
+  with_items:
+    - "data/sway/config"
     - "data/muc023_france.jpg"
 
 - name: myconfig - run scripts
