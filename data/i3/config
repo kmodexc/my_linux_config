@@ -196,7 +196,7 @@ exec --no-startup-id xsetroot -solid "#333333"
 # Set default terminal to st
 bindsym $mod+Return exec /usr/local/bin/st
 
-bindsym Control+$mod+l exec "convert -resize 2560x1440^ -gravity center -extent 2560x1440 .config/i3/muc023_france.jpg RGB:- | i3lock --raw 2560x1440:rgb --image /dev/stdin"
+bindsym Control+$mod+l exec "convert -resize 2560x1440^ -gravity center -extent 2560x1440 ~/.config/i3/muc023_france.jpg RGB:- | i3lock --raw 2560x1440:rgb --image /dev/stdin"
 
 bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date).jpg"
 

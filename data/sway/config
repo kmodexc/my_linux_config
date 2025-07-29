@@ -35,6 +35,12 @@ titlebar_padding 0
 
 bindsym Control+$mod+l exec "swaylock -c 000000"
 
+bindsym Control+Print exec --no-startup-id grimshot copy area
+
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+
 #
 #exec swayidle -w \
 #          timeout 300 'swaylock -f -c 000000' \
@@ -184,11 +190,13 @@ bar {
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
 
-    #status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+    # status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
     status_command i3status
-    #status_command waybar
-    #mode invisible    
+    # swaybar_command waybar
+    # mode invisible    
 }
+
+
 
 include /etc/sway/config.d/*
 

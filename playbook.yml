@@ -15,8 +15,8 @@
   - import_tasks: tasks/basic.yml
   - import_tasks: tasks/simpleterm.yml
   - import_tasks: tasks/myconfig.yml
-  - import_tasks: tasks/ros-humble.yml
-  - import_tasks: tasks/tufast.yml
-  - import_tasks: tasks/muc-startup.yml
+  #- import_tasks: tasks/ros-humble.yml
+  #- import_tasks: tasks/tufast.yml
+  #- import_tasks: tasks/muc-startup.yml
   #- import_tasks: tasks/rtl8821au.yml
   #- import_tasks: tasks/specific.yml

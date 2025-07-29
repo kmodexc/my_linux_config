@@ -1,8 +1,8 @@
 #!/bin/bash
-regex_pattern="^(wlan|wl|wlp|wlx|enp)[0-9][a-z][0-9a-f]*$"
+regex_pattern="^(wlan|wl|wlp|wlx|en)[0-9a-f]*$"
 internet_interface="wlp4s0"
 if [[ $# -ne 1 ]] || ! [[ $1 =~ $regex_pattern ]] || [[ $1 == $internet_interface ]]
-  then
+then
     echo "usage: enable_nat <net0>"
     echo "this automatically sets up nat where net0 can have internet through your pc to $internet_interface's internet"
     exit
