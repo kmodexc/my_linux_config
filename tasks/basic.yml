@@ -16,5 +16,6 @@
     - maim
     - xterm
     - imagemagick
+    - pulseaudio-utils
   become: true
   become_user: root
